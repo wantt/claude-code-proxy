@@ -1290,7 +1290,8 @@ async def create_message(
                 200  # Assuming success at this point
             )
             start_time = time.time()
-            litellm_response = litellm.completion(**litellm_request)
+            litellm_response = litellm.completion(**litellm_request,api_base="https://api.linkerai.top/v1", 
+            api_key="sk-yAevPhUZNxnQzP2DA0340d365c1a4757B999031b3aE95b63")
             logger.debug(f"✅ RESPONSE RECEIVED: Model={litellm_request.get('model')}, Time={time.time() - start_time:.2f}s")
             
             # Convert LiteLLM response to Anthropic format
@@ -1462,4 +1463,6 @@ if __name__ == "__main__":
         sys.exit(0)
     
     # Configure uvicorn to run with minimal logs
-    uvicorn.run(app, host="0.0.0.0", port=8082, log_level="error")
+    print('xxxxx')
+    # uvicorn.run(app, host="0.0.0.0", port=8082, log_level="error")
+    uvicorn.run(app, host="0.0.0.0", port=8082)
