@@ -564,7 +564,7 @@ def convert_anthropic_to_litellm(anthropic_request: MessagesRequest) -> Dict[str
         for tool in anthropic_request.tools:
             # Convert to dict if it's a pydantic model
             if hasattr(tool, 'dict'):
-                tool_dict = tool.dict()
+                tool_dict = tool.model_dump()
             else:
                 # Ensure tool_dict is a dictionary, handle potential errors if 'tool' isn't dict-like
                 try:
@@ -1290,8 +1290,8 @@ async def create_message(
                 200  # Assuming success at this point
             )
             start_time = time.time()
-            litellm_response = litellm.completion(**litellm_request,api_base="https://api.linkerai.top/v1", 
-            api_key="sk-yAevPhUZNxnQzP2DA0340d365c1a4757B999031b3aE95b63")
+            #litellm_response = litellm.completion(**litellm_request,api_base="https://api.linkerai.top/v1")
+            litellm_response = litellm.completion(**litellm_request)
             logger.debug(f"✅ RESPONSE RECEIVED: Model={litellm_request.get('model')}, Time={time.time() - start_time:.2f}s")
             
             # Convert LiteLLM response to Anthropic format
